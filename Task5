@@ -1,0 +1,29 @@
+Для открытия сейфа нужно ввести правильный пароль, который состоит из последовательности символов.
+На подбор пароля готовы потратить 30 минут.
+Для перебора пароля используется алгоритм, которые генерирует биты случайным образом.
+Вероятность, что определенный символ верный р = 0.7.
+
+Подобрать максимально возможную длину пароля, чтобы ее было возможно подобрать за 30 минут.
+
+Р = n!/k!*(n-k)! * p^k * (1-p)^(n-k) 
+
+import math
+
+def cal_prob(k, p, n):
+    prob_sum = 0
+    for i in range(k + 1):
+        prob_sum += math.comb(n, i) * (p ** i) * ((1 - p) ** (n - i))
+    return prob_sum
+
+def _max_length_password(target_probability, p, max_attempts):
+    k = 1  
+    probm = calc_prob(k, p, max_attempts)
+    while prob_sum < target_probability:
+        k += 1
+        prob_sum = calc_prob(k, p, max_attempts)
+    return k
+
+target_probability = 0.5 
+p = 0.7  
+max_attempts = 1800  
+max_length = _max_length_password(target_probability, p, max_attempts)
